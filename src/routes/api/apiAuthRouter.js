@@ -29,8 +29,14 @@ apiAuthRouter.post('/signup', async (req, res) => {
   const { accessToken, refreshToken } = generateTokens(plainUser);
 
   return res
-    .cookie(jwtConfig.access.name, accessToken)
-    .cookie(jwtConfig.refresh.name, refreshToken)
+    .cookie(jwtConfig.access.name, accessToken, {
+      httpOnly: true,
+      maxAge: jwtConfig.access.expiresIn,
+    })
+    .cookie(jwtConfig.refresh.name, refreshToken, {
+      httpOnly: true,
+      maxAge: jwtConfig.refresh.expiresIn,
+    })
     .sendStatus(200);
 });
 
@@ -58,13 +64,22 @@ apiAuthRouter.post('/login', async (req, res) => {
   const { accessToken, refreshToken } = generateTokens(plainUser);
 
   return res
-    .cookie(jwtConfig.access.name, accessToken)
-    .cookie(jwtConfig.refresh.name, refreshToken)
+    .cookie(jwtConfig.access.name, accessToken, {
+      httpOnly: true,
+      maxAge: jwtConfig.access.expiresIn,
+    })
+    .cookie(jwtConfig.refresh.name, refreshToken, {
+      httpOnly: true,
+      maxAge: jwtConfig.refresh.expiresIn,
+    })
     .sendStatus(200);
 });
 
 apiAuthRouter.get('/logout', (req, res) =>
-  res.clearCookie(jwtConfig.access.name).clearCookie(jwtConfig.refresh.name).redirect('/'),
+  res
+    .clearCookie(jwtConfig.access.name)
+    .clearCookie(jwtConfig.refresh.name)
+    .redirect('/'),
 );
 
 export default apiAuthRouter;

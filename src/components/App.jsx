@@ -14,7 +14,7 @@ export default function App({ movies, movie, user }) {
       <Navbar user={user} />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/movies" element={<MoviesPage movies={movies} />} />
+        <Route path="/movies" element={<MoviesPage user={user} movies={movies} />} />
         <Route path="/movies/:movieId" element={<MoviePage movie={movie} />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

@@ -1,5 +1,5 @@
 import express from 'express';
-import { Movie } from '../../db/models';
+import { Movie, User } from '../../db/models';
 import verifyAccessToken from '../middlewares/verifyAccessToken';
 import checkNotAuth from '../middlewares/checkNotAuth';
 
@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.get('/movies', async (req, res) => {
   const initState = {};
-  const movies = await Movie.findAll();
+  const movies = await Movie.findAll({ include: User });
   initState.movies = movies;
   res.render('Layout', initState);
 });

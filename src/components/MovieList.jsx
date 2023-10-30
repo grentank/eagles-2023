@@ -1,7 +1,7 @@
 import React from 'react';
 import MovieCard from './MovieCard';
 
-export default function MovieList({ movies, setMovies }) {
+export default function MovieList({ movies, setMovies, user }) {
   const deleteHandler = async (event) => {
     console.log(event.target.id);
     const response = await fetch(`/api/movies/${event.target.id}`, {
@@ -15,7 +15,7 @@ export default function MovieList({ movies, setMovies }) {
     <>
       <div>MovieList</div>
       <div className="row">
-        {movies.map((movie) => <MovieCard key={movie.id} movie={movie} deleteHandler={deleteHandler} />)}
+        {movies.map((movie) => <MovieCard user={user} key={movie.id} movie={movie} deleteHandler={deleteHandler} />)}
       </div>
     </>
   );

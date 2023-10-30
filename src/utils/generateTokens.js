@@ -5,10 +5,10 @@ require('dotenv').config();
 
 const generateTokens = (payload) => ({
   accessToken: jwt.sign(payload, process.env.JWT_SIGNATURE_ACCESS, {
-    expiresIn: jwtConfig.access.expiresIn,
+    expiresIn: jwtConfig.access.expiresIn.toString(),
   }),
   refreshToken: jwt.sign(payload, process.env.JWT_SIGNATURE_REFRESH, {
-    expiresIn: jwtConfig.refresh.expiresIn,
+    expiresIn: jwtConfig.refresh.expiresIn.toString(),
   }),
 });
 
