@@ -1,4 +1,5 @@
 import express from 'express';
+import { Op } from 'sequelize';
 import { Movie, User } from '../../../db/models';
 import verifyAccessToken from '../../middlewares/verifyAccessToken';
 import checkAuthor from '../../middlewares/checkAuthor';
@@ -19,6 +20,25 @@ router.post('/', verifyAccessToken, async (req, res) => {
     include: User,
   });
   res.json(movieWithAuthor);
+});
+
+router.get('/owned', verifyAccessToken, async (req, res) => {
+  const ownedMovies = await Movie.findAll({
+    where: { userId: res.locals.user.id },
+    include: User,
+  });
+  setTimeout(() => {
+    res.json(ownedMovies);
+  }, 2000);
+});
+
+router.get('/search', async (req, res) => {
+  const { searchString } = req.query;
+  const searchedMovies = await Movie.findAll({
+    where: { title: { [Op.iLike]: `%${searchString}%` } },
+    include: User,
+  });
+  res.json(searchedMovies);
 });
 
 router.delete(

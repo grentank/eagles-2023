@@ -23,10 +23,22 @@ router.get('/movies/:movieId/', async (req, res) => {
   res.render('Layout', { movie });
 });
 
-router.get('/login', checkNotAuth, (req, res) => res.render('Layout'));
+router.get('/login', checkNotAuth, (req, res) =>
+  res.render('Layout'),
+);
 
-router.get('/signup', checkNotAuth, (req, res) => res.render('Layout'));
+router.get('/signup', checkNotAuth, (req, res) =>
+  res.render('Layout'),
+);
 
-router.get('/account', verifyAccessToken, (req, res) => res.render('Layout'));
+router.get('/account', verifyAccessToken, (req, res) =>
+  res.render('Layout'),
+);
+router.get('/search', verifyAccessToken, async (req, res) => {
+  const initState = {};
+  const movies = await Movie.findAll({ include: User });
+  initState.movies = movies;
+  res.render('Layout', initState);
+});
 
 export default router;
