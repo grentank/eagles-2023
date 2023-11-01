@@ -1,0 +1,8 @@
+DB_NAME=dockerday
+DB_PASS=dockerday
+REDIS=redis://redis:6379
+PGPASS=dockerday
+DBNAME=dockerday
+PGPATH=УКАЖИТЕ ПУТЬ ДО ПАППКИ ГДЕ БУДЕТ ЛЕЖАТЬ DB
+DBUSER=admin
+NGPORT=80
