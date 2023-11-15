@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const apiPostsRouter = require('./routes/apiPostsRouter');
+const apiMessagesRouter = require('./routes/apiMessagesRouter');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,8 +11,6 @@ app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.json());
 
-app.use('/api/posts', apiPostsRouter);
+app.use('/api/messages', apiMessagesRouter);
 
-app.listen(PORT, () =>
-  console.log(`API server has started on port ${PORT}`),
-);
+app.listen(PORT, () => console.log(`API server has started on port ${PORT}`));
