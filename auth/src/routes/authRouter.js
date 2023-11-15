@@ -4,6 +4,7 @@ const { User } = require('../../db/models');
 const generateTokens = require('../utils/generateTokens');
 const jwtConfig = require('../config/jwtConfig');
 const cookiesConfig = require('../config/cookiesConfig');
+const verifyRefreshToken = require('../middlewares/verifyRefreshToken');
 
 const authRouter = express.Router();
 
@@ -52,8 +53,12 @@ authRouter.post('/signup', async (req, res) => {
   }
 });
 
-authRouter.get('/logout', (req, res) => {
+authRouter.post('/logout', (req, res) => {
   res.clearCookie(jwtConfig.refresh.name).sendStatus(200);
+});
+
+authRouter.get('/check', verifyRefreshToken, (req, res) => {
+  res.json({ user: res.locals.user, accessToken: '' });
 });
 
 module.exports = authRouter;

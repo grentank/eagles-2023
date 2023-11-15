@@ -3,14 +3,19 @@ import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { useAuth, useAuthHandlers } from '../../contexts/auth/authContext';
 
 export default function NavBar(): JSX.Element {
+  const { logoutHandler } = useAuthHandlers();
+  const auth = useAuth();
+  console.log(auth);
   return (
     <Navbar /* expand="lg" */ className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">
+          Hello, {auth.user.status === 'authenticated' ? auth.user.name : 'Guest'}
+        </Navbar.Brand>
         {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
         {/* <Navbar.Collapse id="basic-navbar-nav"> */}
         <Nav className="me-auto">
@@ -18,7 +23,7 @@ export default function NavBar(): JSX.Element {
           <Nav.Link href="#link">Link</Nav.Link>
           <Link to="/">Main</Link>
           <Link to="/login">Login</Link>
-          <Button>Logout</Button>
+          <Button onClick={() => void logoutHandler()}>Logout</Button>
         </Nav>
         {/* </Navbar.Collapse> */}
       </Container>

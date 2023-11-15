@@ -6,7 +6,7 @@ const apiMessagesRouter = express.Router();
 
 apiMessagesRouter
   .route('/')
-  .get(async (req, res) => {
+  .get(verifyAccessToken, async (req, res) => {
     try {
       const posts = await Message.findAll({ include: User });
       res.json(posts);

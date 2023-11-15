@@ -9,3 +9,8 @@ export type MessageType = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type AddMesageFormData = {
+  title: string;
+  body: string;
+};
