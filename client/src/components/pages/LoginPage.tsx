@@ -1,17 +1,18 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useAuthHandlers } from '../../contexts/auth/authContext';
 import type { LoginFormData } from '../../types/auth';
+import { useAppDispatch } from '../../redux/hooks';
+import { loginThunk } from '../../redux/slices/auth/authThunks';
 
 export default function LoginPage(): JSX.Element {
-  const { loginHandler } = useAuthHandlers();
+  const dispatch = useAppDispatch();
   return (
     <Form
       onSubmit={(e) => {
         e.preventDefault();
         const formData = Object.fromEntries(new FormData(e.currentTarget)) as LoginFormData;
-        void loginHandler(formData);
+        void dispatch(loginThunk(formData));
       }}
     >
       <Form.Group className="mb-3" controlId="formBasicEmail">

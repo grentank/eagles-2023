@@ -4,6 +4,8 @@ export type UserType = {
   email: string;
 };
 
+export type BackendAuth = { user: UserType; accessToken: string };
+
 export type UserState =
   | { status: 'pending' }
   | { status: 'guest' }

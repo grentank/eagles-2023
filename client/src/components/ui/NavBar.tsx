@@ -4,17 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
-import { useAuth, useAuthHandlers } from '../../contexts/auth/authContext';
 import AddMessageModal from './AddMessageModal';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logoutThunk } from '../../redux/slices/auth/authThunks';
 
 export default function NavBar(): JSX.Element {
   const [show, setShow] = useState(false);
-  const { logoutHandler } = useAuthHandlers();
-  const auth = useAuth();
-  console.log(auth);
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector((store) => store.auth);
   return (
     <>
-      <Navbar /* expand="lg" */ className="bg-body-tertiary">
+      <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="#home">
             Hello, {auth.user.status === 'authenticated' ? auth.user.name : 'Guest'}
@@ -32,7 +32,7 @@ export default function NavBar(): JSX.Element {
             <Nav.Link as={Link} to="/signup">
               Signup
             </Nav.Link>
-            <Nav.Link as={Button} onClick={() => void logoutHandler()}>
+            <Nav.Link as={Button} onClick={() => void dispatch(logoutThunk())}>
               Logout
             </Nav.Link>
             <Nav.Link as={Button} onClick={() => setShow(true)}>

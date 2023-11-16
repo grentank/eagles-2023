@@ -36,7 +36,7 @@ apiMessagesRouter
 
 apiMessagesRouter
   .route('/:id')
-  .delete(async (req, res) => {
+  .delete(verifyAccessToken, async (req, res) => {
     try {
       const post = await Message.findByPk(req.params.id);
       await post.destroy();

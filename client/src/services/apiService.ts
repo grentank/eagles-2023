@@ -18,7 +18,7 @@ class ApiService {
 
   static async postMessage(formData: AddMesageFormData): Promise<MessageType> {
     const response = await apiInstance.post<MessageType>('/api/messages', formData);
-    console.log('status', response.status)
+    console.log('status', response.status);
     if (response.status === 201) return response.data;
     return Promise.reject(new Error('Error posting to server'));
   }
