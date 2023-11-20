@@ -22,4 +22,9 @@ export type MessageAction =
   | { type: 'SET_MESSAGES'; payload: MessageType[] }
   | { type: 'BESSMISLENNII' };
 
-export type MessageSliceState = MessageType[];
+// export type MessageSliceState = MessageType[];
+
+export type MessagesSliceState = {
+  messages: MessageType[];
+  currentMessage: MessageType | null;
+}

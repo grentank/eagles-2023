@@ -19,8 +19,12 @@ export const signupThunk =
 export const checkUserThunk =
   () =>
   async (dispatch: AppDispatch): Promise<void> => {
-    const user = await AuthService.check();
-    dispatch({ type: 'LOGIN', payload: user } as AuthActions);
+    try {
+      const user = await AuthService.check();
+      dispatch({ type: 'LOGIN', payload: user } as AuthActions);
+    } catch (error) {
+      dispatch({ type: 'LOGOUT' } as AuthActions);
+    }
   };
 
 export const logoutThunk =

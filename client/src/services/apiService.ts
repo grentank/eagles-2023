@@ -22,6 +22,15 @@ class ApiService {
     if (response.status === 201) return response.data;
     return Promise.reject(new Error('Error posting to server'));
   }
+
+  static async editMessage(
+    formData: AddMesageFormData,
+    id: MessageType['id'],
+  ): Promise<MessageType> {
+    const response = await apiInstance.patch<MessageType>(`/api/messages/${id}`, formData);
+    if (response.status === 200) return response.data;
+    return Promise.reject(new Error('Error editing on server'));
+  }
 }
 
 export default ApiService;

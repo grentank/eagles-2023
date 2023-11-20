@@ -11,17 +11,18 @@ import SignupPage from './components/pages/SignupPage';
 import Loader from './components/HOC/Loader';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { loadInitialMessages } from './redux/slices/messages/thunkActions';
 import { checkUserThunk, refreshThunk } from './redux/slices/auth/authThunks';
 import { apiInstance } from './services/apiService';
+import { thunkLoadMessages } from './redux/slices/messages/createAsyncThunks';
+import { thunkCheckAuth } from './redux/slices/auth/createAsyncThunks';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const { user, accessToken } = useAppSelector((store) => store.auth);
 
   useEffect(() => {
-    void dispatch(loadInitialMessages());
-    void dispatch(checkUserThunk());
+    void dispatch(thunkLoadMessages());
+    void dispatch(thunkCheckAuth());
   }, []);
 
   useEffect(() => {

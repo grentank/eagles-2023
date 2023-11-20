@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import type { AddMesageFormData } from '../../types/message';
 import { useAppDispatch } from '../../redux/hooks';
 import { thunkAddMessage } from '../../redux/slices/messages/thunkActions';
+import { addMessage } from '../../redux/slices/messages/messagesSlice';
+import { thunkSendMessage } from '../../redux/slices/messages/createAsyncThunks';
 
 type AddMessageFormProps = {
   handleClose: () => void;
@@ -17,10 +19,11 @@ export default function AddMessageForm({ handleClose }: AddMessageFormProps): JS
         e.preventDefault();
         const form = e.currentTarget;
         const formData = Object.fromEntries(new FormData(e.currentTarget)) as AddMesageFormData;
-        dispatch(thunkAddMessage(formData))
+        // dispatch(thunkAddMessage(formData))
+        dispatch(thunkSendMessage(formData))
           .catch(console.log)
           .finally(() => {
-            // form.reset();
+            form.reset();
             handleClose();
           });
       }}
